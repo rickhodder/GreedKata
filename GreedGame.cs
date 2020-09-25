@@ -6,6 +6,14 @@ namespace GreedKata
     {
         public int Score(Roll roll)
         {
+            return ScoreCalculator.CalculateScore(roll);
+        }
+    }
+
+    public class ScoreCalculator
+    {
+        public static int CalculateScore(Roll roll)
+        {
             var score = 0;
 
             if (roll.Dice.Count(d=>d==1)==3)
@@ -24,7 +32,9 @@ namespace GreedKata
             }
 
             return score;
+
         }
+
     }
 
     public class Roll
