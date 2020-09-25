@@ -31,6 +31,11 @@ namespace GreedKata
                 score+=200;
             }
 
+            if (roll.Dice.Count(d=>d==3)==3)
+            {
+                score+=300;
+            }
+
             if (roll.Dice.Count(d=>d==5)==1)
             {
                 score+= 50;
