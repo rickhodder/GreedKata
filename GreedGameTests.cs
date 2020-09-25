@@ -8,8 +8,9 @@ namespace GreedKata
         [Fact]
         public void Score_ShouldReturnZero()
         {
-            var game = new GreedGame();            
-            Assert.Equal(0,game.Score());
+            var game = new GreedGame();  
+            var roll = new Roll();                      
+            Assert.Equal(0,game.Score(roll));
         }
     }
 }
