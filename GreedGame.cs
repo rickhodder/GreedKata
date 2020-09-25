@@ -8,7 +8,12 @@ namespace GreedKata
         {
             var score = 0;
 
-            if (roll.Dice.Any(d=>d==1))
+            if (roll.Dice.Count(d=>d==1)==3)
+            {
+                score+=1000;
+            }
+
+            if (roll.Dice.Count(d=>d==1)==1)
             {
                 score+=100;
             }

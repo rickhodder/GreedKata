@@ -42,5 +42,12 @@ namespace GreedKata
             Assert.Equal(150,_game.Score(_roll));            
         }
 
+        [Fact]
+        public void Score_ContainsThreeOnes_ShouldReturn1000()
+        {
+            _roll.Dice =new int[] {1,1,3,4,1};
+            Assert.Equal(1000,_game.Score(_roll));            
+        }
+
     }
 }
