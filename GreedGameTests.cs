@@ -16,7 +16,7 @@ namespace GreedKata
 
         [Fact]
         public void Score_ShouldReturnZero()
-        {   
+        {                     
             Assert.Equal(0,_game.Score(_roll));            
         }
 

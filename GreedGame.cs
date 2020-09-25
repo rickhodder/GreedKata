@@ -10,7 +10,7 @@ namespace GreedKata
             {
                 return 100;
             }
-
+ 
             if (roll.Dice.Any(d=>d==5))
             {
                 return 50;
