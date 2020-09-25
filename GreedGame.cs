@@ -6,17 +6,19 @@ namespace GreedKata
     {
         public int Score(Roll roll)
         {
+            var score = 0;
+
             if (roll.Dice.Any(d=>d==1))
             {
-                return 100;
+                score+=100;
             }
  
             if (roll.Dice.Any(d=>d==5))
             {
-                return 50;
+                score+= 50;
             }
 
-            return 0;
+            return score;
         }
     }
 
