@@ -1,6 +1,6 @@
 ﻿namespace GreedKata
 {
-    public class OnesSingleScoreCalculationStrategy : IScoreCalculationStrategy
+    public class SingleOneScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
         {

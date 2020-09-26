@@ -16,14 +16,14 @@ namespace GreedKata
         private static List<IScoreCalculationStrategy> _calculationStrategies
         = new List<IScoreCalculationStrategy>
             {
-                new OnesSingleScoreCalculationStrategy(),
-                new OnesTripleScoreCalculationStrategy(),
-                new FivesSingleScoreCalculationStrategy(),
-                new FivesTripleScoreCalculationStrategy(),
-                new ThreeTwosGets200ScoreCalculationStrategy(),
-                new ThreeThreesGets300ScoreCalculationStrategy(),
-                new ThreeFoursGets400ScoreCalculationStrategy(),
-                new ThreeSixesGets600ScoreCalculationStrategy()
+                new SingleOneScoreCalculationStrategy(),
+                new SingleFiveScoreCalculationStrategy(),
+                new TripleOneScoreCalculationStrategy(),
+                new TripleTwoScoreCalculationStrategy(),
+                new TripleThreeScoreCalculationStrategy(),
+                new TripleFourScoreCalculationStrategy(),
+                new TripleFiveScoreCalculationStrategy(),
+                new TripleSixesScoreCalculationStrategy()
             };
 
         public static int CalculateScore(Roll roll)
