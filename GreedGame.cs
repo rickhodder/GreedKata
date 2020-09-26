@@ -100,22 +100,6 @@ namespace GreedKata
         }
     }
 
-    public class ThreeFivesGets500ScoreCalculationStrategy : IScoreCalculationStrategy
-    {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 5) == 3 ? 500 : 0;
-        }
-    }
-
-    public class EachFiveGets50ScoreCalculationStrategy : IScoreCalculationStrategy
-    {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 5) == 1 ? 50 : 0;
-        }
-    }
-
     public class ThreeSixesGets600ScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
