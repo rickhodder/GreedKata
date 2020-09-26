@@ -1,4 +1,4 @@
-﻿namespace GreedKata
+﻿namespace GreedKata.Interfaces
 {
     public interface IScoreCalculationStrategy
     {

@@ -1,4 +1,6 @@
-﻿namespace GreedKata
+﻿using GreedKata.Interfaces;
+
+namespace GreedKata.Strategies
 {
     public class NthDieScoreCalculationStrategy : IScoreCalculationStrategy
     {

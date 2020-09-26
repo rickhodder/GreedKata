@@ -1,4 +1,4 @@
-﻿namespace GreedKata
+﻿namespace GreedKata.Strategies
 {
     public class TripleThreeScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {

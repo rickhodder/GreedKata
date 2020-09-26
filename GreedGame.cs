@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
+using GreedKata.Interfaces;
+using GreedKata.Strategies;
 
 namespace GreedKata
 {
