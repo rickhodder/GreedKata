@@ -16,6 +16,26 @@ namespace GreedKata
         int CalculateScore(Roll roll);
     }
 
+    public class NthDieScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        private readonly int _die;
+        private readonly int _countOfDie;
+        private readonly int _scoreValue;
+
+        public NthDieScoreCalculationStrategy(int die, int countOfDie, int scoreValue)
+        {
+            _die = die;
+            _countOfDie = countOfDie;
+            _scoreValue = scoreValue;
+        }
+        public int CalculateScore(Roll roll)
+        {
+            var count = roll.Dice.Count(d => d == _die);
+
+            return (count >= _countOfDie) ? _scoreValue : 0;
+        }
+    }
+
     public class OnesSingleScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
@@ -32,14 +52,9 @@ namespace GreedKata
         }
     }
 
-    public class OnesTripleScoreCalculationStrategy : IScoreCalculationStrategy
+    public class OnesTripleScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            var count = roll.Dice.Count(d => d == 1);
-
-            return (count < 3) ? 0 : 1000;
-        }
+        public OnesTripleScoreCalculationStrategy(): base(die:1, countOfDie:3, scoreValue:1000) {}
     }
 
     public class FivesSingleScoreCalculationStrategy : IScoreCalculationStrategy
@@ -58,14 +73,9 @@ namespace GreedKata
         }
     }
 
-    public class FivesTripleScoreCalculationStrategy : IScoreCalculationStrategy
+    public class FivesTripleScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            var count = roll.Dice.Count(d => d == 5);
-
-            return (count < 3) ? 0 : 500;
-        }
+        public FivesTripleScoreCalculationStrategy(): base(die:5, countOfDie:3, scoreValue:500) {}
     }
 
     public class ThreeOnesGet1000ScoreCalculationStrategy : IScoreCalculationStrategy
@@ -76,36 +86,24 @@ namespace GreedKata
         }
     }
 
-    public class ThreeTwosGets200ScoreCalculationStrategy : IScoreCalculationStrategy
+    public class ThreeTwosGets200ScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 2) == 3 ? 200 : 0;
-        }
+        public ThreeTwosGets200ScoreCalculationStrategy() : base(die:2, countOfDie:3, scoreValue:200) {}
     }
 
-    public class ThreeThreesGets300ScoreCalculationStrategy : IScoreCalculationStrategy
+    public class ThreeThreesGets300ScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 3) == 3 ? 300 : 0;
-        }
+        public ThreeThreesGets300ScoreCalculationStrategy(): base(die:3, countOfDie:3, scoreValue:300) {}
     }
 
-    public class ThreeFoursGets400ScoreCalculationStrategy : IScoreCalculationStrategy
+    public class ThreeFoursGets400ScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 4) == 3 ? 400 : 0;
-        }
+        public ThreeFoursGets400ScoreCalculationStrategy():base(die:4, countOfDie:3,scoreValue:400){}
     }
 
-    public class ThreeSixesGets600ScoreCalculationStrategy : IScoreCalculationStrategy
+    public class ThreeSixesGets600ScoreCalculationStrategy : NthDieScoreCalculationStrategy
     {
-        public int CalculateScore(Roll roll)
-        {
-            return roll.Dice.Count(d => d == 6) == 3 ? 600 : 0;
-        }
+        public ThreeSixesGets600ScoreCalculationStrategy(): base(die:6, countOfDie:3, scoreValue:600){}
     }
 
     public class ScoreCalculator
