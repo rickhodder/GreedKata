@@ -16,7 +16,7 @@ namespace GreedKata
         int CalculateScore(Roll roll);
     }
 
-    public class OnesScoreCalculationStrategy : IScoreCalculationStrategy
+    public class OnesSingleScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
         {
@@ -25,40 +25,46 @@ namespace GreedKata
 
             if (count < 3)
             {
-                return count * 100;
+                return score + (count * 100);
             }
 
-            score += 1000;
-
-            if (count-3>0)
-            {
-                score+=(count-3) * 100;
-            }
-
-            return score;
+            return score + ((count - 3) * 100);
         }
     }
 
-    public class FivesScoreCalculationStrategy : IScoreCalculationStrategy
+    public class OnesTripleScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            var count = roll.Dice.Count(d => d == 1);
+
+            return (count < 3) ? 0 : 1000;
+        }
+    }
+
+    public class FivesSingleScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
         {
             var score = 0;
             var count = roll.Dice.Count(d => d == 5);
 
-            if (count<3)
+            if (count < 3)
             {
-                return count * 50;
+                return score + (count * 50);
             }
 
-            score += 500;
+            return score + ((count - 3) * 50);
+        }
+    }
 
-            if (count-3>0)
-            {
-                score+=(count-3) * 50;
-            }
+    public class FivesTripleScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            var count = roll.Dice.Count(d => d == 5);
 
-            return score;
+            return (count < 3) ? 0 : 500;
         }
     }
 
@@ -123,8 +129,10 @@ namespace GreedKata
         private static List<IScoreCalculationStrategy> _calculationStrategies
         = new List<IScoreCalculationStrategy>
             {
-                new OnesScoreCalculationStrategy(),
-                new FivesScoreCalculationStrategy(),
+                new OnesSingleScoreCalculationStrategy(),
+                new OnesTripleScoreCalculationStrategy(),
+                new FivesSingleScoreCalculationStrategy(),
+                new FivesTripleScoreCalculationStrategy(),
                 new ThreeTwosGets200ScoreCalculationStrategy(),
                 new ThreeThreesGets300ScoreCalculationStrategy(),
                 new ThreeFoursGets400ScoreCalculationStrategy(),
@@ -139,11 +147,8 @@ namespace GreedKata
             {
                 score += strategy.CalculateScore(roll);
             }
-
             return score;
-
         }
-
     }
 
     public class Roll
