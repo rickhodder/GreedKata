@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 
 namespace GreedKata
 {
@@ -10,35 +11,70 @@ namespace GreedKata
         }
     }
 
+    public interface IScoreCalculationStrategy
+    {
+        int CalculateScore(Roll roll) ;
+    }
+
+    public class EachOnesGet100ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==1)==1 ? 100 : 0;
+        }
+    }
+
+    public class ThreeOnesGet1000ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==1)==3 ? 1000 : 0;
+        }
+    }
+
+    public class ThreeTwosGets200ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==2)==3 ? 200 : 0;
+        }
+    }
+
+    public class ThreeThreesGets300ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==3)==3 ? 300 : 0;
+        }
+    }
+
+    public class EachFiveGets50ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==5)==1 ? 50 :0;
+        }
+    }
+
     public class ScoreCalculator
     {
+        private static List<IScoreCalculationStrategy> _calculationStrategies 
+        = new List<IScoreCalculationStrategy>
+            {
+                new EachOnesGet100ScoreCalculationStrategy(),
+                new EachFiveGets50ScoreCalculationStrategy(),
+                new ThreeOnesGet1000ScoreCalculationStrategy(),
+                new ThreeTwosGets200ScoreCalculationStrategy(),
+                new ThreeThreesGets300ScoreCalculationStrategy()
+            };
+
         public static int CalculateScore(Roll roll)
         {
             var score = 0;
 
-            if (roll.Dice.Count(d=>d==1)==3)
+            foreach (var strategy in _calculationStrategies)
             {
-                score+=1000;
-            }
-
-            if (roll.Dice.Count(d=>d==1)==1)
-            {
-                score+=100;
-            }
-
-            if (roll.Dice.Count(d=>d==2)==3)
-            {
-                score+=200;
-            }
-
-            if (roll.Dice.Count(d=>d==3)==3)
-            {
-                score+=300;
-            }
-
-            if (roll.Dice.Count(d=>d==5)==1)
-            {
-                score+= 50;
+                score+=strategy.CalculateScore(roll);
             }
 
             return score;
