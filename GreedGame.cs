@@ -11,6 +11,16 @@ namespace GreedKata
         }
     }
 
+   public class Roll
+    {
+        public int[] Dice { get; set; } = new int[5];
+
+        public int CountOfDie(int die)
+        {
+            return Dice.Count(d=>d==die);
+        }
+    }
+
     public interface IScoreCalculationStrategy
     {
         int CalculateScore(Roll roll);
@@ -30,9 +40,7 @@ namespace GreedKata
         }
         public int CalculateScore(Roll roll)
         {
-            var count = roll.Dice.Count(d => d == _die);
-
-            return (count >= _countOfDie) ? _scoreValue : 0;
+            return (roll.CountOfDie(_die) >= _countOfDie) ? _scoreValue : 0;
         }
     }
 
@@ -41,7 +49,7 @@ namespace GreedKata
         public int CalculateScore(Roll roll)
         {
             var score = 0;
-            var count = roll.Dice.Count(d => d == 1);
+            var count = roll.CountOfDie(1);
 
             if (count < 3)
             {
@@ -62,7 +70,7 @@ namespace GreedKata
         public int CalculateScore(Roll roll)
         {
             var score = 0;
-            var count = roll.Dice.Count(d => d == 5);
+            var count = roll.CountOfDie(5);
 
             if (count < 3)
             {
@@ -82,7 +90,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d => d == 1) == 3 ? 1000 : 0;
+            return roll.CountOfDie(1) == 3 ? 1000 : 0;
         }
     }
 
@@ -131,10 +139,5 @@ namespace GreedKata
             }
             return score;
         }
-    }
-
-    public class Roll
-    {
-        public int[] Dice { get; set; } = new int[5];
     }
 }
