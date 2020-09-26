@@ -72,6 +72,14 @@ namespace GreedKata
         }
     }
 
+    public class ThreeSixesGets600ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==6)==3 ? 600 : 0;
+        }
+    }
+
     public class ScoreCalculator
     {
         private static List<IScoreCalculationStrategy> _calculationStrategies 
@@ -83,7 +91,8 @@ namespace GreedKata
                 new ThreeTwosGets200ScoreCalculationStrategy(),
                 new ThreeThreesGets300ScoreCalculationStrategy(),
                 new ThreeFoursGets400ScoreCalculationStrategy(),
-                new ThreeFivesGets500ScoreCalculationStrategy()
+                new ThreeFivesGets500ScoreCalculationStrategy(),
+                new ThreeSixesGets600ScoreCalculationStrategy()
             };
 
         public static int CalculateScore(Roll roll)
