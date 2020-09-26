@@ -13,14 +13,52 @@ namespace GreedKata
 
     public interface IScoreCalculationStrategy
     {
-        int CalculateScore(Roll roll) ;
+        int CalculateScore(Roll roll);
     }
 
-    public class EachOnesGet100ScoreCalculationStrategy : IScoreCalculationStrategy
+    public class OnesScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==1)==1 ? 100 : 0;
+            var score = 0;
+            var count = roll.Dice.Count(d => d == 1);
+
+            if (count < 3)
+            {
+                return count * 100;
+            }
+
+            score += 1000;
+
+            if (count-3>0)
+            {
+                score+=(count-3) * 100;
+            }
+
+            return score;
+        }
+    }
+
+    public class FivesScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            var score = 0;
+            var count = roll.Dice.Count(d => d == 5);
+
+            if (count<3)
+            {
+                return count * 50;
+            }
+
+            score += 500;
+
+            if (count-3>0)
+            {
+                score+=(count-3) * 50;
+            }
+
+            return score;
         }
     }
 
@@ -28,7 +66,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==1)==3 ? 1000 : 0;
+            return roll.Dice.Count(d => d == 1) == 3 ? 1000 : 0;
         }
     }
 
@@ -36,7 +74,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==2)==3 ? 200 : 0;
+            return roll.Dice.Count(d => d == 2) == 3 ? 200 : 0;
         }
     }
 
@@ -44,7 +82,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==3)==3 ? 300 : 0;
+            return roll.Dice.Count(d => d == 3) == 3 ? 300 : 0;
         }
     }
 
@@ -52,7 +90,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==4)==3 ? 400 : 0;
+            return roll.Dice.Count(d => d == 4) == 3 ? 400 : 0;
         }
     }
 
@@ -60,7 +98,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==5)==3 ? 500 : 0;
+            return roll.Dice.Count(d => d == 5) == 3 ? 500 : 0;
         }
     }
 
@@ -68,7 +106,7 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==5)==1 ? 50 :0;
+            return roll.Dice.Count(d => d == 5) == 1 ? 50 : 0;
         }
     }
 
@@ -76,22 +114,20 @@ namespace GreedKata
     {
         public int CalculateScore(Roll roll)
         {
-            return roll.Dice.Count(d=>d==6)==3 ? 600 : 0;
+            return roll.Dice.Count(d => d == 6) == 3 ? 600 : 0;
         }
     }
 
     public class ScoreCalculator
     {
-        private static List<IScoreCalculationStrategy> _calculationStrategies 
+        private static List<IScoreCalculationStrategy> _calculationStrategies
         = new List<IScoreCalculationStrategy>
             {
-                new EachOnesGet100ScoreCalculationStrategy(),
-                new EachFiveGets50ScoreCalculationStrategy(),
-                new ThreeOnesGet1000ScoreCalculationStrategy(),
+                new OnesScoreCalculationStrategy(),
+                new FivesScoreCalculationStrategy(),
                 new ThreeTwosGets200ScoreCalculationStrategy(),
                 new ThreeThreesGets300ScoreCalculationStrategy(),
                 new ThreeFoursGets400ScoreCalculationStrategy(),
-                new ThreeFivesGets500ScoreCalculationStrategy(),
                 new ThreeSixesGets600ScoreCalculationStrategy()
             };
 
@@ -101,7 +137,7 @@ namespace GreedKata
 
             foreach (var strategy in _calculationStrategies)
             {
-                score+=strategy.CalculateScore(roll);
+                score += strategy.CalculateScore(roll);
             }
 
             return score;

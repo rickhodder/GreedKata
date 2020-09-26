@@ -17,7 +17,7 @@ namespace GreedKata
         [Fact]
         public void Score_ShouldReturnZero()
         {
-            _roll.Dice = new int[] { 2, 3, 4, 6, 2 };
+            _roll.Dice = new int[] { 2, 3, 4, 6, 6 };
             Assert.Equal(0, _game.Score(_roll));
         }
 
@@ -75,6 +75,16 @@ namespace GreedKata
         {
             _roll.Dice = new int[] { 6, 6, 5, 5, 5 };
             Assert.Equal(500, _game.Score(_roll));
+        }       
+
+        [Theory]
+        [InlineData(1,1,1,5,1,1150)]
+        [InlineData(2,3,4,6,2,0)]
+        [InlineData(3,4,5,3,3,350)]
+        public void Score_ExampleTests_ShouldSucceed(int die1, int die2, int die3, int die4, int die5, int result)
+        {
+            _roll.Dice = new int[] { die1, die2, die3, die4, die5 };
+            Assert.Equal(result, _game.Score(_roll));
         }       
 
         [Fact]
