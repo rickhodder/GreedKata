@@ -48,6 +48,14 @@ namespace GreedKata
         }
     }
 
+    public class ThreeFoursGets400ScoreCalculationStrategy : IScoreCalculationStrategy
+    {
+        public int CalculateScore(Roll roll)
+        {
+            return roll.Dice.Count(d=>d==4)==3 ? 400 : 0;
+        }
+    }
+
     public class EachFiveGets50ScoreCalculationStrategy : IScoreCalculationStrategy
     {
         public int CalculateScore(Roll roll)
@@ -65,7 +73,8 @@ namespace GreedKata
                 new EachFiveGets50ScoreCalculationStrategy(),
                 new ThreeOnesGet1000ScoreCalculationStrategy(),
                 new ThreeTwosGets200ScoreCalculationStrategy(),
-                new ThreeThreesGets300ScoreCalculationStrategy()
+                new ThreeThreesGets300ScoreCalculationStrategy(),
+                new ThreeFoursGets400ScoreCalculationStrategy()
             };
 
         public static int CalculateScore(Roll roll)
